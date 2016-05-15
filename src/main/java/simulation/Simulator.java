@@ -181,9 +181,10 @@ public class Simulator implements Runnable {
         if (random.nextFloat() < settings.traffic / 10) {
             float velocity = random.nextFloat() / 8 + 0.1f;
             float madnessFactor = madnessFactor(random);
-            float safeDistanceWhileStaying = 0.4f - madnessFactor * 0.2f;
+            float safeDistanceWhileStaying = 1.15f - madnessFactor * 0.2f;
             float safeDistance = random.nextFloat() * 0.2f + 0.3f - madnessFactor * 0.2f;
-            Agent agent = new Agent(new Driver(safeDistance, safeDistanceWhileStaying, madnessFactor), new Car(0.01f, 0.1f, velocity, 0.8f), crossroad.getRandomRoute());
+            int timeout = random.nextInt(5) + 5;
+            Agent agent = new Agent(new Driver(safeDistance, safeDistanceWhileStaying, madnessFactor, timeout), new Car(0.01f, 0.1f, velocity, 0.8f), crossroad.getRandomRoute());
             Node inputNode = agent.nextEdge().getBegin();
             agentsQueues.get(inputNode).add(agent);
         }
