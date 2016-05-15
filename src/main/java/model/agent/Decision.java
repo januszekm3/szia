@@ -3,27 +3,22 @@ package model.agent;
 import model.crossroad.Edge;
 
 public class Decision {
-    public static enum Acceleration {
+    public enum Acceleration {
         ACCELERATE,
         KEEP,
         BRAKE;
 
         public float getVelocityDifference(Car car) {
-            float value = 0;
             switch (this) {
                 case ACCELERATE:
-                    value = car.getAccelerationSpeed();
-                    break;
+                    return car.getAccelerationSpeed();
                 case KEEP:
-                    value = 0;
-                    break;
+                    return 0;
                 case BRAKE:
-                    value = -car.getDecelerationSpeed();
-                    break;
+                    return -car.getDecelerationSpeed();
                 default:
                     throw new RuntimeException("Fuckup!!!!!");
             }
-            return value;
         }
     }
 

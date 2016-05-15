@@ -5,6 +5,7 @@ import model.crossroad.Node;
 import simulation.AgentState;
 import simulation.CrossroadState;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Set;
@@ -43,9 +44,19 @@ public class Agent {
 
     private Decision.Acceleration getAccelerationDecision(CrossroadState state) {
         Decision.Acceleration decision = Decision.Acceleration.ACCELERATE;
-        if (willDriveIntoSomeonesAss(state) || willDriveIntoSomeonesSide(state) || willCrossSomeonesRoute(state) || willBlockCrossing(state)) {
+        if (willDriveIntoSomeonesAss(state) || willDriveIntoSomeonesSide(state)) {
             decision = Decision.Acceleration.BRAKE;
+            driver.setDate(new Date());
+        } else if (willCrossSomeonesRoute(state) || willBlockCrossing(state)) {
+            Date currentDate = new Date();
+            long seconds = (currentDate.getTime()-driver.getDate().getTime())/1000;
+            if (seconds < driver.getTimeout()) {
+                decision = Decision.Acceleration.BRAKE;
+            } else {
+                decision = Decision.Acceleration.ACCELERATE;
+            }
         }
+
         return decision;
     }
 
@@ -63,12 +74,6 @@ public class Agent {
         }
         AgentState nearestCar = getNearestCar(state);
         if (nearestCar == null) {
-            return false;
-        }
-        AgentState.AgentPosition tailPosition = nearestCar.getTailPosition();
-        if (!tailPosition.edge.equals(nextEdge()) ||
-                tailPosition.edgePosition > car.getLength() + driver.getSafeDistanceToNextStayingCar() ||
-                nearestCar.getVelocity() > 0.05f) {
             return false;
         }
         float distance = headPosition.edge.length() - headPosition.edgePosition;
