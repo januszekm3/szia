@@ -16,13 +16,13 @@
       "id": 3,
       "x": 1,
       "y": 7,
-      "probability": 0.2
+      "probability": 0.125
     },
     {
       "id": 4,
       "x": 1,
       "y": 6,
-      "probability": 0.2
+      "probability": 0.125
     },
     {
       "id": 5,
@@ -38,7 +38,7 @@
       "id": 7,
       "x": 6,
       "y": 17,
-      "probability": 0.05
+      "probability": 0.125
     },
     {
       "id": 8,
@@ -80,7 +80,7 @@
       "id": 15,
       "x": 7,
       "y": 17,
-      "probability": 0.05
+      "probability": 0.125
     },
 
     {
@@ -160,7 +160,7 @@
       "id": 30,
       "x": 11,
       "y": 1,
-      "probability": 0.05
+      "probability": 0.125
     },
     {
       "id": 31,
@@ -202,7 +202,7 @@
       "id": 38,
       "x": 12,
       "y": 1,
-      "probability": 0.05
+      "probability": 0.125
     },
     {
       "id": 39,
@@ -218,13 +218,13 @@
       "id": 41,
       "x": 17,
       "y": 12,
-      "probability": 0.2
+      "probability": 0.125
     },
     {
       "id": 42,
       "x": 17,
       "y": 11,
-      "probability": 0.2
+      "probability": 0.125
     },
     {
       "id": 43,
