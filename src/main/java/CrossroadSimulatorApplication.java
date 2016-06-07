@@ -28,6 +28,14 @@ public class CrossroadSimulatorApplication {
     private Simulator simulator;
     private SimulationSettings settings;
 
+    public SimulationSettings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(SimulationSettings settings) {
+        this.settings = settings;
+    }
+
     public CrossroadSimulatorApplication(SimulationSettings settings) {
         this.settings = settings;
         this.crossroad = CrossroadLoader.loadFromFile(settings.crossroadFile);
@@ -102,7 +110,7 @@ public class CrossroadSimulatorApplication {
         saveToFile(avgStats);
     }
 
-    private void saveToFile(StatisticsTracker.SimulationStatistics statitics) {
+    private synchronized void saveToFile(StatisticsTracker.SimulationStatistics statitics) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter("results.txt", true));
@@ -177,13 +185,17 @@ public class CrossroadSimulatorApplication {
         SimulationSettings settings = new SimulationSettings();
         if (args.length > 0) {
             settings.crossroadFile = args[0];
-            settings.batchMode = Integer.parseInt(args[1]) == 1;
+            settings.batchMode = true;//Integer.parseInt(args[1]) == 1;
             settings.simulationTime = Integer.parseInt(args[2]);
             settings.traffic = Float.parseFloat(args[3]);
             settings.craziness = Float.parseFloat(args[4]);
         }
         CrossroadSimulatorApplication simulator = new CrossroadSimulatorApplication(settings);
-        simulator.run();
+        for(int i =0; i <= 10; i++) {
+            settings.craziness = ((float)i)/ 10;
+            simulator.run();
+//            System.out.println("---------------------------------------------------------------SIM END------------------------------------------------------");
+        }
     }
 
     private void createUi() {
