@@ -185,17 +185,13 @@ public class CrossroadSimulatorApplication {
         SimulationSettings settings = new SimulationSettings();
         if (args.length > 0) {
             settings.crossroadFile = args[0];
-            settings.batchMode = true;//Integer.parseInt(args[1]) == 1;
+            settings.batchMode = Integer.parseInt(args[1]) == 1;
             settings.simulationTime = Integer.parseInt(args[2]);
             settings.traffic = Float.parseFloat(args[3]);
             settings.craziness = Float.parseFloat(args[4]);
         }
         CrossroadSimulatorApplication simulator = new CrossroadSimulatorApplication(settings);
-        for(int i =0; i <= 10; i++) {
-            settings.craziness = ((float)i)/ 10;
-            simulator.run();
-//            System.out.println("---------------------------------------------------------------SIM END------------------------------------------------------");
-        }
+        simulator.run();
     }
 
     private void createUi() {
